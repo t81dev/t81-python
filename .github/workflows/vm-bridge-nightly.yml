@@ -15,7 +15,7 @@ jobs:
             vm_ref: main
             enable_parity_p0: "1"
           - lane: pinned
-            vm_ref: 94a62c0f822eef42c8cad88c520ad99f7575ecef
+            vm_ref: fc9d55eba258aa2d17d7778e29e186f0bf62e2d8
             enable_parity_p0: "0"
     steps:
       - name: Checkout t81-python
@@ -50,6 +50,7 @@ jobs:
       - name: Runtime contract gate
         working-directory: t81-python
         env:
+          VM_COMPAT_LANE: ${{ matrix.lane }}
           T81_VM_DIR: ${{ github.workspace }}/t81-vm
         run: python3 scripts/check-vm-contract.py
 
@@ -74,4 +75,4 @@ jobs:
       - name: Verify pinned baseline references
         run: |
           rg -n "runtime-contract-v0.4" docs/compatibility.md
-          rg -n "94a62c0f822eef42c8cad88c520ad99f7575ecef" docs/compatibility.md
+          rg -n "fc9d55eba258aa2d17d7778e29e186f0bf62e2d8" docs/compatibility.md

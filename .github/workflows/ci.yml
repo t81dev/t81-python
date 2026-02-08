@@ -65,7 +65,7 @@ jobs:
           - lane: floating
             vm_ref: main
           - lane: pinned
-            vm_ref: 30306b32eea8b7acde1be354ed10d24881989225
+            vm_ref: fc9d55eba258aa2d17d7778e29e186f0bf62e2d8
     steps:
       - name: Checkout t81-python
         uses: actions/checkout@v4
@@ -83,6 +83,7 @@ jobs:
         run: python3 scripts/check-vm-contract.py
         working-directory: t81-python
         env:
+          VM_COMPAT_LANE: ${{ matrix.lane }}
           T81_VM_DIR: ${{ github.workspace }}/t81-vm
 
   vm-bridge-canary-floating:
@@ -144,7 +145,7 @@ jobs:
         with:
           repository: t81dev/t81-vm
           path: t81-vm
-          ref: 30306b32eea8b7acde1be354ed10d24881989225
+          ref: fc9d55eba258aa2d17d7778e29e186f0bf62e2d8
 
       - name: Checkout t81-lang
         uses: actions/checkout@v4

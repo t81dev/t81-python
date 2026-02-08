@@ -29,9 +29,10 @@ Public CLI commands are treated as stable contract surface once documented in `R
 
 - Runtime integration target: `t81-vm` C ABI (`include/t81/vm/c_api.h`).
 - Active tagged runtime contract baseline: `runtime-contract-v0.4`.
-- Current migration runtime contract commit pin (`t81-vm/main`): `94a62c0f822eef42c8cad88c520ad99f7575ecef`.
+- Current migration runtime contract commit pin (`t81-vm/main`): `fc9d55eba258aa2d17d7778e29e186f0bf62e2d8`.
 - Runtime contract version at migration pin: `2026-02-08-v4`.
 - `runtime-contract-v0.4` status: tagged and active.
+- Local marker: `contracts/runtime-contract.json`.
 - Default bridge loader behavior:
   - use `T81_VM_LIB` if set,
   - else attempt workspace-local `t81-vm/build/libt81vm_capi.{dylib,so}`.
@@ -41,7 +42,7 @@ Public CLI commands are treated as stable contract surface once documented in `R
 - CI coverage:
   - runtime contract gate against `t81-vm/main` (`scripts/check-vm-contract.py`),
   - floating lane against latest `t81-vm/main`,
-  - pinned lane against VM commit pin `94a62c0f822eef42c8cad88c520ad99f7575ecef`.
+  - pinned lane against VM commit pin `fc9d55eba258aa2d17d7778e29e186f0bf62e2d8`.
 
 ## Release Cadence Rule
 
