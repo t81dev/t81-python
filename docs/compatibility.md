@@ -39,7 +39,7 @@ Public CLI commands are treated as stable contract surface once documented in `R
 - CI coverage:
   - runtime contract gate against `t81-vm/main` (`scripts/check-vm-contract.py`),
   - floating lane against latest `t81-vm/main`,
-  - pinned lane against `runtime-contract-v0.1`.
+  - pinned lane against VM commit pin `23a1003`.
 
 ## Release Cadence Rule
 
