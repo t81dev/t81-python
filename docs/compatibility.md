@@ -33,7 +33,7 @@ Public CLI commands are treated as stable contract surface once documented in `R
   - use `T81_VM_LIB` if set,
   - else attempt workspace-local `t81-vm/build/libt81vm_capi.{dylib,so}`.
 - ABI and bridge regressions are covered by `tests/test_vm_bridge.py`.
-- Bridge parity canary includes VM P0 comparison/conversion opcodes (`Less`, `I2F`, `F2I`, `I2Frac`, `Frac2I`).
+- Bridge parity canary includes VM P0 comparison/conversion opcodes (`Less`, `I2F`, `F2I`, `I2Frac`, `Frac2I`) in the floating VM lane.
 - Contract assumptions are validated by `scripts/check-vm-contract.py`.
 - CI coverage:
   - runtime contract gate against `t81-vm/main` (`scripts/check-vm-contract.py`),

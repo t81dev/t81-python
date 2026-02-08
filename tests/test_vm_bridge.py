@@ -41,6 +41,9 @@ def test_vm_bridge_runtime_canary_when_library_present() -> None:
 
 
 def test_vm_bridge_parity_p0_opcode_canary_when_library_present(tmp_path: Path) -> None:
+    if os.environ.get("T81_VM_ENABLE_PARITY_P0_CANARY") != "1":
+        pytest.skip("parity p0 canary not enabled for this lane")
+
     vm_lib = os.environ.get("T81_VM_LIB")
     if not vm_lib:
         pytest.skip("runtime library env var not set")

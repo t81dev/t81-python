@@ -116,6 +116,7 @@ jobs:
         env:
           T81_VM_LIB: ${{ github.workspace }}/t81-vm/build/libt81vm_capi.so
           T81_VM_CANARY_PROGRAM: ${{ github.workspace }}/t81-vm/build/canary.tisc.json
+          T81_VM_ENABLE_PARITY_P0_CANARY: "1"
           PYTHONPATH: src
         run: |
           python -m pip install --upgrade pip
