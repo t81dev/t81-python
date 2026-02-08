@@ -56,6 +56,28 @@ jobs:
           name: dist
           path: dist/*
 
+  runtime-contract-gate:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout t81-python
+        uses: actions/checkout@v4
+        with:
+          path: t81-python
+
+      - name: Checkout t81-vm
+        uses: actions/checkout@v4
+        with:
+          repository: t81dev/t81-vm
+          path: t81-vm
+          ref: main
+
+      - name: Validate runtime contract assumptions
+        run: python3 scripts/check-vm-contract.py
+        working-directory: t81-python
+        env:
+          T81_VM_DIR: ${{ github.workspace }}/t81-vm
+
   vm-bridge-canary-floating:
     runs-on: ubuntu-latest
     needs: test
