@@ -65,7 +65,7 @@ jobs:
           - lane: floating
             vm_ref: main
           - lane: pinned
-            vm_ref: 30306b3
+            vm_ref: 30306b32eea8b7acde1be354ed10d24881989225
     steps:
       - name: Checkout t81-python
         uses: actions/checkout@v4
@@ -144,7 +144,7 @@ jobs:
         with:
           repository: t81dev/t81-vm
           path: t81-vm
-          ref: 30306b3
+          ref: 30306b32eea8b7acde1be354ed10d24881989225
 
       - name: Checkout t81-lang
         uses: actions/checkout@v4
