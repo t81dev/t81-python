@@ -65,7 +65,7 @@ jobs:
           - lane: floating
             vm_ref: main
           - lane: pinned
-            vm_ref: fc9d55eba258aa2d17d7778e29e186f0bf62e2d8
+            vm_ref: 4158a42156a085a2b722205be951576fc01969b9
     steps:
       - name: Checkout t81-python
         uses: actions/checkout@v4
@@ -145,7 +145,7 @@ jobs:
         with:
           repository: t81dev/t81-vm
           path: t81-vm
-          ref: fc9d55eba258aa2d17d7778e29e186f0bf62e2d8
+          ref: 4158a42156a085a2b722205be951576fc01969b9
 
       - name: Checkout t81-lang
         uses: actions/checkout@v4

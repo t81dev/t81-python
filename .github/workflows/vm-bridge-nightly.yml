@@ -15,7 +15,7 @@ jobs:
             vm_ref: main
             enable_parity_p0: "1"
           - lane: pinned
-            vm_ref: fc9d55eba258aa2d17d7778e29e186f0bf62e2d8
+            vm_ref: 4158a42156a085a2b722205be951576fc01969b9
             enable_parity_p0: "0"
     steps:
       - name: Checkout t81-python
@@ -74,5 +74,5 @@ jobs:
 
       - name: Verify pinned baseline references
         run: |
-          rg -n "runtime-contract-v0.4" docs/compatibility.md
-          rg -n "fc9d55eba258aa2d17d7778e29e186f0bf62e2d8" docs/compatibility.md
+          rg -n "runtime-contract-v0.5" docs/compatibility.md
+          rg -n "4158a42156a085a2b722205be951576fc01969b9" docs/compatibility.md
