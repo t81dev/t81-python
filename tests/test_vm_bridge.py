@@ -1,6 +1,6 @@
-from pathlib import Path
 import os
 import subprocess
+from pathlib import Path
 
 import pytest
 
@@ -23,6 +23,8 @@ def test_vm_bridge_runtime_canary_when_library_present() -> None:
     vm_program = os.environ.get("T81_VM_CANARY_PROGRAM")
     if not vm_lib or not vm_program:
         pytest.skip("runtime canary env vars not set")
+    assert vm_lib is not None
+    assert vm_program is not None
 
     env = os.environ.copy()
     env["T81_VM_LIB"] = vm_lib
@@ -30,8 +32,7 @@ def test_vm_bridge_runtime_canary_when_library_present() -> None:
         ["python3", "scripts/run_vm_canary.py", vm_program],
         cwd=Path(__file__).resolve().parents[1],
         env=env,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
+        capture_output=True,
         text=True,
     )
     assert result.returncode == 0, result.stderr

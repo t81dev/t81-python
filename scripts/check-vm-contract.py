@@ -7,7 +7,6 @@ import json
 import os
 from pathlib import Path
 
-
 REQUIRED_FORMATS = {"TextV1", "TiscJsonV1"}
 REQUIRED_HOST_ABI_NAME = "t81vm-c-api"
 REQUIRED_TRACE_FORMAT = "trace-v1"

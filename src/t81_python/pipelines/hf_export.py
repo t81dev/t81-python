@@ -147,9 +147,7 @@ def load_checkpoint_state_dict(path: str | Path) -> dict[str, Any]:
 
         framework = "pt" if importlib.util.find_spec("torch") is not None else "np"
         state_dict: dict[str, Any] = {}
-        with safe_open(  # type: ignore[no-untyped-call]
-            str(checkpoint), framework=framework, device="cpu"
-        ) as handle:
+        with safe_open(str(checkpoint), framework=framework, device="cpu") as handle:
             for key in handle.keys():
                 state_dict[key] = handle.get_tensor(key)
         return state_dict

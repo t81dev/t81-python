@@ -6,14 +6,13 @@ import ctypes
 import os
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional
 
 
 @dataclass(frozen=True)
 class VMTraceEntry:
     pc: int
     opcode: int
-    trap: Optional[int]
+    trap: int | None
 
 
 class _CTraceEntry(ctypes.Structure):
@@ -24,7 +23,7 @@ class _CTraceEntry(ctypes.Structure):
     ]
 
 
-def default_vm_lib_paths(workspace_root: Optional[Path] = None) -> list[Path]:
+def default_vm_lib_paths(workspace_root: Path | None = None) -> list[Path]:
     root = workspace_root if workspace_root is not None else Path(__file__).resolve().parents[3]
     return [
         root / "t81-vm/build/libt81vm_capi.dylib",
@@ -35,7 +34,7 @@ def default_vm_lib_paths(workspace_root: Optional[Path] = None) -> list[Path]:
 class VMBridge:
     """Minimal runtime bridge for loading and executing T81VM programs."""
 
-    def __init__(self, lib_path: Optional[Path] = None) -> None:
+    def __init__(self, lib_path: Path | None = None) -> None:
         path = self._resolve_lib_path(lib_path)
         self._lib = ctypes.CDLL(str(path))
 
@@ -51,7 +50,11 @@ class VMBridge:
         self._lib.t81vm_register.restype = ctypes.c_int64
         self._lib.t81vm_trace_len.argtypes = [ctypes.c_void_p]
         self._lib.t81vm_trace_len.restype = ctypes.c_size_t
-        self._lib.t81vm_trace_get.argtypes = [ctypes.c_void_p, ctypes.c_size_t, ctypes.POINTER(_CTraceEntry)]
+        self._lib.t81vm_trace_get.argtypes = [
+            ctypes.c_void_p,
+            ctypes.c_size_t,
+            ctypes.POINTER(_CTraceEntry),
+        ]
         self._lib.t81vm_trace_get.restype = ctypes.c_int
 
         handle = self._lib.t81vm_create()
@@ -60,7 +63,7 @@ class VMBridge:
         self._handle = ctypes.c_void_p(handle)
 
     @staticmethod
-    def _resolve_lib_path(explicit: Optional[Path]) -> Path:
+    def _resolve_lib_path(explicit: Path | None) -> Path:
         if explicit is not None:
             if not explicit.exists():
                 raise FileNotFoundError(f"t81-vm library not found: {explicit}")
