@@ -24,3 +24,11 @@ Public CLI commands are treated as stable contract surface once documented in `R
 
 - Additive commands/options may ship in minor releases.
 - Renames/removals require changelog entries and migration guidance.
+
+## VM ABI Compatibility
+
+- Runtime integration target: `t81-vm` C ABI (`include/t81/vm/c_api.h`).
+- Default bridge loader behavior:
+  - use `T81_VM_LIB` if set,
+  - else attempt workspace-local `t81-vm/build/libt81vm_capi.{a,dylib,so}`.
+- ABI and bridge regressions are covered by `tests/test_vm_bridge.py`.
