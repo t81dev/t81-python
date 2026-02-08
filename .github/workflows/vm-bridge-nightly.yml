@@ -1,0 +1,77 @@
+name: vm-bridge-nightly
+
+on:
+  schedule:
+    - cron: "41 4 * * *"
+  workflow_dispatch:
+
+jobs:
+  bridge-nightly:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - lane: floating
+            vm_ref: main
+            enable_parity_p0: "1"
+          - lane: pinned
+            vm_ref: 30306b32eea8b7acde1be354ed10d24881989225
+            enable_parity_p0: "0"
+    steps:
+      - name: Checkout t81-python
+        uses: actions/checkout@v4
+        with:
+          path: t81-python
+
+      - name: Checkout t81-vm
+        uses: actions/checkout@v4
+        with:
+          repository: t81dev/t81-vm
+          path: t81-vm
+          ref: ${{ matrix.vm_ref }}
+
+      - name: Checkout t81-lang
+        uses: actions/checkout@v4
+        with:
+          repository: t81dev/t81-lang
+          path: t81-lang
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build VM + emit canary
+        run: |
+          make -C t81-vm CXXFLAGS='-std=c++23 -O2 -Wall -Wextra -Wpedantic -Iinclude -fPIC' build-check
+          python3 t81-lang/scripts/emit-canary-bytecode.py t81-vm/build/canary.tisc.json
+
+      - name: Runtime contract gate
+        working-directory: t81-python
+        env:
+          T81_VM_DIR: ${{ github.workspace }}/t81-vm
+        run: python3 scripts/check-vm-contract.py
+
+      - name: Bridge canary
+        working-directory: t81-python
+        env:
+          T81_VM_LIB: ${{ github.workspace }}/t81-vm/build/libt81vm_capi.so
+          T81_VM_CANARY_PROGRAM: ${{ github.workspace }}/t81-vm/build/canary.tisc.json
+          T81_VM_ENABLE_PARITY_P0_CANARY: ${{ matrix.enable_parity_p0 }}
+          PYTHONPATH: src
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e '.[dev]'
+          pytest -q tests/test_vm_bridge.py
+
+  drift-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout t81-python
+        uses: actions/checkout@v4
+
+      - name: Verify pinned baseline references
+        run: |
+          rg -n "runtime-contract-v0.2" docs/compatibility.md
+          rg -n "30306b32eea8b7acde1be354ed10d24881989225" docs/compatibility.md
