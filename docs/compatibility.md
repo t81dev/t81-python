@@ -50,3 +50,17 @@ Public CLI commands are treated as stable contract surface once documented in `R
   - `docs/compatibility.md` (this file),
   - `docs/contracts.md`,
   - bridge tests in `tests/test_vm_bridge.py`.
+
+## Contract Pin Refresh Procedure
+
+Use this flow whenever `t81-vm` promotes the runtime contract baseline:
+
+1. Update `contracts/runtime-contract.json` with the new `vm_main_pin` and `contract_version`.
+2. Update this file (`docs/compatibility.md`) with:
+   - active tagged baseline,
+   - pinned commit,
+   - runtime contract version.
+3. Run:
+   - `python3 scripts/check-vm-contract.py`
+   - `pytest -q tests/test_vm_bridge.py`
+4. Verify pinned/floating CI lanes remain green before merging.
