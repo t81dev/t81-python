@@ -77,6 +77,8 @@ t81-python inspect-artifact ./out-ternary
 
 - CI: `.github/workflows/ci.yml`
 - Publish on version tags: `.github/workflows/publish.yml` (tags like `v0.1.0`)
+- Standard local scripts: `scripts/check.sh`, `scripts/test.sh`, `scripts/build.sh`, `scripts/release-check.sh`, `scripts/benchmark-smoke.sh`, `scripts/sync-docs.sh`
+- Make targets: `make check`, `make test`, `make build`, `make bench`, `make release-check`, `make sync-docs`, `make validate-ecosystem`
 
 ## Project Layout
 
@@ -105,6 +107,7 @@ This repository is structured to align with related repositories in `https://git
 - `docs/artifact-spec.md`
 - `docs/benchmarks.md`
 - `docs/contracts.md`
+- `docs/compatibility.md`
 - `docs/releasing.md`
 - `STATUS.md`
 - `ROADMAP.md`

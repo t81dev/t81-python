@@ -13,9 +13,17 @@ pip install -e '.[dev]'
 Run before opening a pull request:
 
 ```bash
+scripts/check.sh
+scripts/benchmark-smoke.sh
+scripts/build.sh
+```
+
+Equivalent direct commands:
+
+```bash
 ruff check .
-mypy src tests
-pytest
+mypy src tests benchmarks
+pytest -q
 python -m build
 ```
 

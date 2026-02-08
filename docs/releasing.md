@@ -8,12 +8,17 @@
 ## Pre-release Checklist
 
 1. Run local checks:
-   - `ruff check .`
-   - `mypy src tests`
-   - `pytest`
-   - `python -m build`
+   - `scripts/release-check.sh`
+   - `scripts/benchmark-smoke.sh`
 2. Update `CHANGELOG.md` with release notes.
 3. Ensure `pyproject.toml` version is correct.
+
+Equivalent direct commands:
+
+- `ruff check .`
+- `mypy src tests benchmarks`
+- `pytest -q`
+- `python -m build`
 
 ## Tag and Publish
 
