@@ -24,3 +24,19 @@ Public CLI commands are treated as stable contract surface once documented in `R
 
 - Additive commands/options may ship in minor releases.
 - Renames/removals require changelog entries and migration guidance.
+
+## VM ABI Compatibility
+
+- Runtime integration target: `t81-vm` C ABI (`include/t81/vm/c_api.h`).
+- Baseline runtime contract tag: `runtime-contract-v0.1`.
+- Default bridge loader behavior:
+  - use `T81_VM_LIB` if set,
+  - else attempt workspace-local `t81-vm/build/libt81vm_capi.{dylib,so}`.
+- ABI and bridge regressions are covered by `tests/test_vm_bridge.py`.
+
+## Release Cadence Rule
+
+- VM ABI-affecting changes in `t81-vm` require synchronized updates to:
+  - `docs/compatibility.md` (this file),
+  - `docs/contracts.md`,
+  - bridge tests in `tests/test_vm_bridge.py`.

@@ -85,6 +85,7 @@ t81-python inspect-artifact ./out-ternary
 - `src/t81_python/core.py`: balanced ternary core types.
 - `src/t81_python/quantization.py`: quantize/dequantize and compact packing utilities.
 - `src/t81_python/pipelines/hf_export.py`: end-to-end state-dict export flow.
+- `src/t81_python/vm_bridge.py`: ctypes bridge for the `t81-vm` C ABI.
 - `src/t81_python/integrations/huggingface.py`: state-dict ternary conversion helpers.
 - `src/t81_python/integrations/llama_cpp.py`: validated kwargs builder for `llama_cpp.Llama`.
 - `examples/`: minimal integration-focused scripts.
@@ -99,6 +100,11 @@ This repository is structured to align with related repositories in `https://git
 - typed APIs and clear package surface (`t81lib` style)
 - practical docs-first organization (`t81-docs` style)
 - reproducible examples and explicit status framing (`t81-examples` + research repos)
+
+Runtime bridge contract:
+
+- `t81-vm` publishes ABI header: `include/t81/vm/c_api.h`
+- `t81-python` consumes ABI via `VMBridge` (`T81_VM_LIB` or workspace auto-discovery)
 
 ## Documentation Index
 

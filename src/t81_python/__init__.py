@@ -2,6 +2,7 @@
 
 from .core import Trit, TritVector
 from .quantization import dequantize_trits, pack_trits, quantize_float_to_trits, unpack_trits
+from .vm_bridge import VMBridge, VMTraceEntry
 
 __all__ = [
     "Trit",
@@ -10,4 +11,6 @@ __all__ = [
     "dequantize_trits",
     "pack_trits",
     "unpack_trits",
+    "VMBridge",
+    "VMTraceEntry",
 ]

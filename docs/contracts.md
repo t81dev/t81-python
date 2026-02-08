@@ -12,6 +12,14 @@ This document defines cross-repository contracts for `t81-python` within the `t8
 
 ## Upstream/Downstream Boundaries
 
+### `t81-vm` (runtime upstream)
+
+Contract:
+
+- `t81-vm` owns VM execution semantics and the host C ABI.
+- `t81-python` consumes `include/t81/vm/c_api.h` through `src/t81_python/vm_bridge.py`.
+- ABI changes require synchronized updates in `t81-vm/docs/contracts/vm-compatibility.json` and `t81-python` compatibility notes/tests.
+
 ### `t81lib` (upstream core)
 
 Contract:
