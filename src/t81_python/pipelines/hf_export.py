@@ -7,7 +7,7 @@ import json
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, cast
+from typing import Any
 
 import numpy as np
 import numpy.typing as npt
@@ -46,9 +46,9 @@ class ArtifactInspection:
 def _to_numpy(value: Any) -> npt.NDArray[np.float32]:
     if hasattr(value, "detach") and hasattr(value, "cpu") and hasattr(value, "numpy"):
         arr = np.asarray(value.detach().cpu().numpy(), dtype=np.float32)
-        return cast(npt.NDArray[np.float32], arr)
+        return arr
     arr = np.asarray(value, dtype=np.float32)
-    return cast(npt.NDArray[np.float32], arr)
+    return arr
 
 
 def export_state_dict_to_ternary(

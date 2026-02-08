@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from collections.abc import Iterable
-from typing import cast
 
 import numpy as np
 import numpy.typing as npt
@@ -25,7 +24,7 @@ def dequantize_trits(values: Iterable[int | Trit], scale: float = 1.0) -> npt.ND
     """Map trits back to float values using a scalar multiplier."""
     ints = np.asarray([int(v) for v in values], dtype=np.float32)
     out = np.asarray(ints * np.float32(scale), dtype=np.float32)
-    return cast(npt.NDArray[np.float32], out)
+    return out
 
 
 def pack_trits(values: Iterable[int | Trit]) -> bytes:
