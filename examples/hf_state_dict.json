@@ -1,0 +1,4 @@
+{
+  "lm_head.weight": [0.22, -0.44, 0.01, 0.00],
+  "model.layers.0.attn.q_proj.weight": [[0.3, -0.2], [0.07, -0.01]]
+}

@@ -1,0 +1,40 @@
+{
+  "name": "t81-python",
+  "repository": "https://github.com/t81dev/t81-python",
+  "snapshot_date": "2026-02-08",
+  "status": "active",
+  "maturity": "alpha",
+  "purpose": "Typed Python APIs and artifact workflows for balanced ternary quantization and checkpoint export.",
+  "primary_language": "Python",
+  "interfaces": {
+    "python_package": "t81_python",
+    "cli": "t81-python"
+  },
+  "artifact_formats": [
+    {
+      "name": "t81-export-artifact",
+      "version": "0.1",
+      "manifest": "manifest.json",
+      "payload_extension": ".t81bin",
+      "spec": "docs/artifact-spec.md"
+    }
+  ],
+  "dependencies": {
+    "required": ["numpy>=1.24"],
+    "optional": {
+      "hf": ["torch>=2.1", "transformers>=4.40", "safetensors>=0.4"],
+      "llama": ["llama-cpp-python>=0.2.90"]
+    }
+  },
+  "ecosystem_links": {
+    "docs_hub": "https://github.com/t81dev/t81-docs",
+    "core_library": "https://github.com/t81dev/t81lib",
+    "examples": "https://github.com/t81dev/t81-examples"
+  },
+  "quality_gates": [
+    "ruff check .",
+    "mypy src tests benchmarks",
+    "pytest",
+    "python -m build"
+  ]
+}
