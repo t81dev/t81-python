@@ -108,7 +108,7 @@ jobs:
 
       - name: Build VM + emit canary
         run: |
-          make -C t81-vm build-check
+          make -C t81-vm CXXFLAGS='-std=c++23 -O2 -Wall -Wextra -Wpedantic -Iinclude -fPIC' build-check
           python3 t81-lang/scripts/emit-canary-bytecode.py t81-vm/build/canary.tisc.json
 
       - name: Install package + run bridge canary
